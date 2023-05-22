@@ -24,7 +24,7 @@ project(
 
 include(cmake/PreventInSourceBuilds.cmake)
 include(ProjectOptions.cmake)
-
+include(cmake/data.cmake)
 
 fun_with_images_setup_options()
 
