@@ -73,16 +73,6 @@ if(BUILD_TESTING)
   add_subdirectory(test)
 endif()
 
-
-if(fun_with_images_BUILD_FUZZ_TESTS)
-  message(AUTHOR_WARNING "Building Fuzz Tests, using fuzzing sanitizer https://www.llvm.org/docs/LibFuzzer.html")
-  if (NOT fun_with_images_ENABLE_ADDRESS_SANITIZER AND NOT fun_with_images_ENABLE_THREAD_SANITIZER)
-    message(WARNING "You need asan or tsan enabled for meaningful fuzz testing")
-  endif()
-  add_subdirectory(fuzz_test)
-
-endif()
-
 # If MSVC is being used, and ASAN is enabled, we need to set the debugger environment
 # so that it behaves well with MSVC's debugger, and we can run the target from visual studio
 if(MSVC)
@@ -92,7 +82,7 @@ if(MSVC)
 endif()
 
 # set the startup project for the "play" button in MSVC
-set_property(DIRECTORY PROPERTY VS_STARTUP_PROJECT intro)
+set_property(DIRECTORY PROPERTY VS_STARTUP_PROJECT fun-images)
 
 if(CMAKE_SKIP_INSTALL_RULES)
   return()
@@ -104,7 +94,7 @@ include(cmake/PackageProject.cmake)
 # we know we want to ship
 fun_with_images_package_project(
   TARGETS
-  intro
+  fun-images
   fun_with_images_options
   fun_with_images_warnings
   # FIXME: this does not work! CK

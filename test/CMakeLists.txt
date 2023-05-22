@@ -34,7 +34,7 @@ target_link_libraries(
   tests
   PRIVATE fun_with_images::fun_with_images_warnings
           fun_with_images::fun_with_images_options
-          fun_with_images::sample_library
+          #fun_with_images::sample_library
           Catch2::Catch2WithMain)
 
 if(WIN32 AND BUILD_SHARED_LIBS)
@@ -66,7 +66,7 @@ target_link_libraries(
   constexpr_tests
   PRIVATE fun_with_images::fun_with_images_warnings
           fun_with_images::fun_with_images_options
-          fun_with_images::sample_library
+          #fun_with_images::sample_library
           Catch2::Catch2WithMain)
 
 catch_discover_tests(
@@ -89,7 +89,7 @@ target_link_libraries(
   relaxed_constexpr_tests
   PRIVATE fun_with_images::fun_with_images_warnings
           fun_with_images::fun_with_images_options
-          fun_with_images::sample_library
+          #fun_with_images::sample_library
           Catch2::Catch2WithMain)
 target_compile_definitions(relaxed_constexpr_tests PRIVATE -DCATCH_CONFIG_RUNTIME_STATIC_REQUIRE)
 
