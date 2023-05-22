@@ -81,9 +81,7 @@ jobs:
         gcovr: false
         opencppcoverage: false
     - name: Install MESA
-      uses: "ConorMacBride/install-package@v1"
-      with:
-          apt: libgl1-mesa-dev
+      run: sudo apt update && sudo apt install -y libgl1-mesa-dev libxkbcommon-x11-dev
 
       # make sure coverage is only enabled for Debug builds, since it sets -O0 to make sure coverage
       # has meaningful results
