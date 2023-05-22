@@ -2,8 +2,8 @@ add_executable(intro main.cpp)
 
 target_link_libraries(
   intro
-  PRIVATE myproject::myproject_options
-          myproject::myproject_warnings)
+  PRIVATE fun_with_images::fun_with_images_options
+          fun_with_images::fun_with_images_warnings)
 
 target_link_system_libraries(
   intro
