@@ -6,7 +6,6 @@
 #include <spdlog/spdlog.h>
 
 #define STB_IMAGE_IMPLEMENTATION
-#include <numeric>
 #include <stb_image.h>
 
 constexpr std::size_t DefaultBufferWidth = 800;
@@ -160,20 +159,24 @@ int main()
 					const int height = static_cast<int>(bufferHeight);
 					const std::size_t index = static_cast<std::size_t>(bufferX) + static_cast<std::size_t>(bufferY) *
 					                          bufferWidth;
-					auto fireIndex = (bufferX - 1 + width) % width + (bufferY + 1) % height * width;
-					const auto tmp1 = fireBuffer[static_cast<std::size_t>(fireIndex)];
 
-					fireIndex = bufferX % width + (bufferY + 1) % height * width;
-					const auto tmp2 = fireBuffer[static_cast<std::size_t>(fireIndex)];
+					const auto bottomY = (bufferY + 1) % height * width;
 
-					fireIndex = (bufferX + 1) % width + (bufferY + 1) % height * height;
-					const auto tpm3 = fireBuffer[static_cast<std::size_t>(fireIndex)];
+					auto fireIndex = (bufferX - 1 + width) % width + bottomY;
+					const auto bottomLeftPixel = fireBuffer[static_cast<std::size_t>(fireIndex)];
+
+					fireIndex = bufferX % width + bottomY;
+					const auto bottomPixel = fireBuffer[static_cast<std::size_t>(fireIndex)];
+
+					fireIndex = (bufferX + 1) % width + bottomY;
+					const auto bottomRightPixel = fireBuffer[static_cast<std::size_t>(fireIndex)];
 
 					fireIndex = bufferX % width + (bufferY + 2) % height * height;
-					const auto tpm4 = fireBuffer[static_cast<std::size_t>(fireIndex)];
+					const auto bottomBottomPixel = fireBuffer[static_cast<std::size_t>(fireIndex)];
 
-					const auto tpm5 = (tmp1 + tmp2 + tpm3 + tpm4) * 32 / 129;
-					fireBuffer[index] = static_cast<std::uint8_t>(tpm5);
+					const auto newPixelValue =
+						static_cast<float>(bottomLeftPixel + bottomPixel + bottomRightPixel + bottomBottomPixel) / 3.2F;
+					fireBuffer[index] = static_cast<std::uint8_t>(newPixelValue);
 				}
 			}
 
